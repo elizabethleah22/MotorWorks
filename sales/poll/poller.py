@@ -19,9 +19,9 @@ def poll():
             url = "http://inventory-api:8000/api/automobiles/"
             response = requests.get(url)
             content = json.loads(response.content)
-            for automobile in content["automobiles"]:
+            for automobile in content["autos"]:
                 AutomobileVO.objects.update_or_create(
-                    import_href=automobile["vin"],
+                    vin=automobile["vin"],
                     defaults={"vin": automobile["vin"]}
                     )
         except Exception as e:
