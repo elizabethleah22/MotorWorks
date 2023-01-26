@@ -59,7 +59,7 @@ export default function NewSalesRecord({ automobiles, customers, salespeople, ge
         <div className="row">
             <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
-                    <h1>Add a Salesrecord</h1>
+                    <h1>Record a New Sale</h1>
                     <form onSubmit={handleSubmit} id="create-salesrecord-form">
                         <div className="form-floating mb-3">
                             <select onChange={handleVinChange} placeholder="VIN" required type="text" name="vin" id="vin" className="form-control" value={vin} >
