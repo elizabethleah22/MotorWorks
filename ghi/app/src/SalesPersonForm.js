@@ -31,7 +31,6 @@ export default function NewSalesPerson({ getSalesPeople }) {
         const response = await fetch(salesPeopleUrl, fetchConfig);
         if (response.ok) {
             const newSalesPerson = await response.json();
-            console.log(newSalesPerson)
             setName('')
             setEmployeeNumber('')
             getSalesPeople()

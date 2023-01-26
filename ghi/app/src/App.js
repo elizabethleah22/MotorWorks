@@ -6,6 +6,8 @@ import SalesList from './SalesList';
 import NewSalesPerson from './SalesPersonForm';
 import NewTechnician from './NewTechnician';
 import NewServiceAppointment from './NewServiceAppointment';
+import NewCustomer from './CustomerForm';
+import NewSalesRecord from './SalesRecordForm';
 
 
 function App() {
@@ -13,6 +15,18 @@ function App() {
   const[salesPeople, setSalesPeople] = useState([]);
   const[technicians, setTechnicians] = useState([]);
   const[serviceappointment, setServiceappointment] = useState([]);
+  const[customers, setCustomers] = useState([]);
+  const[salesRecords, setSalesRecords] = useState([]);
+
+  const getSalesRecords = async () => {
+    const salesRecordsResponse = await fetch('http://localhost:8090/api/salesrecords/');
+
+    if (salesRecordsResponse.ok) {
+      const data = await salesRecordsResponse.json();
+      const salesrecords = data.salesrecords;
+      setSalesRecords(salesrecords);
+    }
+  }
 
   const getSales = async () => {
     const salesResponse = await fetch('http://localhost:8090/api/salesrecords/');
@@ -31,6 +45,16 @@ function App() {
       const data = await salesPeopleResponse.json();
       const salesPeople = data.salespeople;
       setSalesPeople(salesPeople);
+    }
+  }
+
+  const getCustomers = async () => {
+    const customerResponse = await fetch('http://localhost:8090/api/customers/');
+
+    if (customerResponse.ok) {
+      const data = await customerResponse.json();
+      const customers = data.customers;
+      setCustomers(customers);
     }
   }
 
@@ -53,7 +77,14 @@ function App() {
       setServiceappointment(serviceappointment);
     }
   }
-useEffect( () => {getSales(); getSalesPeople(); getTechnicians(); getServiceappointment()},  []);
+useEffect( () => {
+  getSales();
+  getSalesPeople();
+  getTechnicians();
+  getServiceappointment();
+  getCustomers();
+  getSalesRecords()},  []);
+
   return (
     <BrowserRouter>
       <Nav />
@@ -62,6 +93,7 @@ useEffect( () => {getSales(); getSalesPeople(); getTechnicians(); getServiceappo
           <Route path="/" element={<MainPage />} />
           <Route path="/sales" >
             <Route path="" element={<SalesList sales={sales} getSales={getSales} />} />
+            <Route path="newrecord" element={<NewSalesRecord salesrecords={salesRecords} getSalesRecords={getSalesRecords} /> } />
           </Route>
           <Route path="/salespeople" >
             <Route path="" element={<NewSalesPerson salespeople={salesPeople} getSalesPeople={getSalesPeople} /> } />
@@ -71,6 +103,9 @@ useEffect( () => {getSales(); getSalesPeople(); getTechnicians(); getServiceappo
           </Route>
           <Route path="/serviceappointment" >
             <Route path="" element={<NewServiceAppointment serviceappointment={serviceappointment} getServiceappointment={getServiceappointment} /> } />
+          </Route>
+          <Route path="/customers" >
+            <Route path="" element={<NewCustomer customers={customers} getCustomers={getCustomers} /> } />
           </Route>
         </Routes>
       </div>
