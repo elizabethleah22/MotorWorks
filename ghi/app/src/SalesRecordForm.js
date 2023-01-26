@@ -1,6 +1,6 @@
 import React, {useState } from 'react'
 
-export default function NewSalesRecord({ getSalesRecord }) {
+export default function NewSalesRecord({ customers, salesPersons, vins, getSalesRecord }) {
     const [vin, setVin] = useState('');
     const [salesPerson, setSalesperson] = useState('');
     const [customer, setCustomer] = useState('');
@@ -75,8 +75,8 @@ export default function NewSalesRecord({ getSalesRecord }) {
                             <option value="">Choose a Salesperson</option>
                             {salesPersons.map(salesperson => {
                                 return (
-                                    <option key={salesPerson.employee_number} value={salesPerson.employee_number}>
-                                        {salesPerson.name}
+                                    <option key={salesperson.employee_number} value={salesperson.employee_number}>
+                                        {salesperson.name}
                                     </option>
                                 )
                             })}

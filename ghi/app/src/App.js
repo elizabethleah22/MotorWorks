@@ -8,7 +8,10 @@ import NewTechnician from './NewTechnician';
 import NewServiceAppointment from './NewServiceAppointment';
 import NewCustomer from './CustomerForm';
 import NewSalesRecord from './SalesRecordForm';
-import ManufacturerList from './ManufacturerList'
+import ManufacturerList from './ManufacturerList';
+import VehicleList from './VehicleList';
+import NewManufacturer from './ManufacturerForm';
+
 
 
 function App() {
@@ -18,7 +21,8 @@ function App() {
   const[serviceappointment, setServiceappointment] = useState([]);
   const[customers, setCustomers] = useState([]);
   const[salesRecords, setSalesRecords] = useState([]);
-  const[manufacturers, setManufacturers] = useState([])
+  const[manufacturers, setManufacturers] = useState([]);
+  const[vehicles, setVehicles] = useState([])
 
   const getSalesRecords = async () => {
     const salesRecordsResponse = await fetch('http://localhost:8090/api/salesrecords/');
@@ -48,6 +52,16 @@ function App() {
       const data = await manufacturerResponse.json();
       const manufacturers = data.manufacturers;
       setManufacturers(manufacturers);
+    }
+  }
+
+  const getVehicles = async () => {
+    const vehicleResponse = await fetch('http://localhost:8100/api/models/');
+
+    if (vehicleResponse.ok) {
+      const data = await vehicleResponse.json();
+      const vehicle = data.vehicle;
+      setVehicles(vehicle);
     }
   }
 
@@ -97,7 +111,8 @@ useEffect( () => {
   getServiceappointment();
   getCustomers();
   getSalesRecords();
-  getManufacturers()},  []);
+  getManufacturers();
+  getVehicles()},  []);
 
   return (
     <BrowserRouter>
@@ -123,6 +138,10 @@ useEffect( () => {
           </Route>
           <Route path="/manufacturers" >
             <Route path="" element={<ManufacturerList manufacturers={manufacturers} getManufacturers={getManufacturers} /> } />
+            <Route path="new" element={<NewManufacturer manufacturers={manufacturers} getManufacturers={getManufacturers} /> } />
+          </Route>
+          <Route path="/vehicles" >
+            <Route path="" element={<VehicleList vehicles={vehicles} getVehicles={getVehicles} /> } />
           </Route>
         </Routes>
       </div>
