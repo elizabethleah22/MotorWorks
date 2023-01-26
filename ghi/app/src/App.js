@@ -11,6 +11,7 @@ import NewSalesRecord from './SalesRecordForm';
 import ManufacturerList from './ManufacturerList';
 import VehicleList from './VehicleList';
 import NewManufacturer from './ManufacturerForm';
+import AutomobileList from './AutomobileList'
 
 
 
@@ -22,7 +23,8 @@ function App() {
   const[customers, setCustomers] = useState([]);
   const[salesRecords, setSalesRecords] = useState([]);
   const[manufacturers, setManufacturers] = useState([]);
-  const[vehicles, setVehicles] = useState([])
+  const[vehicles, setVehicles] = useState([]);
+  const[automobiles, setAutomobiles] = useState([]);
 
   const getSalesRecords = async () => {
     const salesRecordsResponse = await fetch('http://localhost:8090/api/salesrecords/');
@@ -60,8 +62,16 @@ function App() {
 
     if (vehicleResponse.ok) {
       const data = await vehicleResponse.json();
-      const vehicle = data.vehicle;
-      setVehicles(vehicle);
+      setVehicles(data.vehicle);
+    }
+  }
+
+  const getAutomobiles = async () => {
+    const automobileResponse = await fetch('http://localhost:8100/api/automobiles/');
+
+    if (automobileResponse.ok) {
+      const data = await automobileResponse.json();
+      setAutomobiles(data.autos)
     }
   }
 
@@ -112,7 +122,8 @@ useEffect( () => {
   getCustomers();
   getSalesRecords();
   getManufacturers();
-  getVehicles()},  []);
+  getVehicles();
+  getAutomobiles()},  []);
 
   return (
     <BrowserRouter>
@@ -122,7 +133,7 @@ useEffect( () => {
           <Route path="/" element={<MainPage />} />
           <Route path="/sales" >
             <Route path="" element={<SalesList sales={sales} getSales={getSales} />} />
-            <Route path="newrecord" element={<NewSalesRecord salesrecords={salesRecords} getSalesRecords={getSalesRecords} /> } />
+            <Route path="newrecord" element={<NewSalesRecord salesrecords={salesRecords} automobiles={automobiles} getSalesRecords={getSalesRecords} /> } />
           </Route>
           <Route path="/salespeople" >
             <Route path="" element={<NewSalesPerson salespeople={salesPeople} getSalesPeople={getSalesPeople} /> } />
@@ -142,6 +153,9 @@ useEffect( () => {
           </Route>
           <Route path="/vehicles" >
             <Route path="" element={<VehicleList vehicles={vehicles} getVehicles={getVehicles} /> } />
+          </Route>
+          <Route path="/automobiles" >
+            <Route path="" element={<AutomobileList automobiles={automobiles} getAutomobiles={getAutomobiles} /> } />
           </Route>
         </Routes>
       </div>

@@ -1,5 +1,5 @@
 import React, {useState } from 'react'
-
+// not showing up on browser
 export default function NewCustomer({ getCustomers }) {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');

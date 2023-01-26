@@ -1,9 +1,9 @@
 import React from 'react'
 
-function SalesList({sales, getsales}) {
+function SalesList({sales}) {
     if (sales === undefined) {
-      return null;
-    }
+        return null;
+      }
     return (
       <div className="container">
         <table className="table table-striped">
