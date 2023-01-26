@@ -45,4 +45,4 @@ class SalesRecord(models.Model):
         related_name="salesrecords",
         on_delete=models.PROTECT
         )
-    price = models.PositiveSmallIntegerField(null=True)
+    price = models.PositiveIntegerField(null=True)
