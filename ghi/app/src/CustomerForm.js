@@ -1,9 +1,9 @@
 import React, {useState } from 'react'
-// not showing up on browser
+
 export default function NewCustomer({ getCustomers }) {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
-    const [phone_number, setPhoneNumber] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
 
     const handleNameChange = (event) => {
         const value = event.target.value
@@ -25,7 +25,7 @@ export default function NewCustomer({ getCustomers }) {
         const data = {};
         data.name = name;
         data.address = address;
-        data.phone_number = phone_number;
+        data.phone_number = phoneNumber;
 
         const customersUrl = 'http://localhost:8090/api/customers/';
         const fetchConfig = {
@@ -59,7 +59,7 @@ export default function NewCustomer({ getCustomers }) {
                             <label htmlFor="address">Address</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <input onChange={handlePhoneNumberChange} placeholder="Phone Number" required type="text" name="phone_number" id="phone_number" className="form-control" value={phone_number} />
+                            <input onChange={handlePhoneNumberChange} placeholder="Phone Number" required type="text" name="phone_number" id="phone_number" className="form-control" value={phoneNumber} />
                             <label htmlFor="phone_number">Phone Number</label>
                         </div>
                         <button className="btn btn-primary">Submit</button>

@@ -12,18 +12,21 @@ import ManufacturerList from './ManufacturerList';
 import VehicleList from './VehicleList';
 import NewManufacturer from './ManufacturerForm';
 import AutomobileList from './AutomobileList'
+import NewVehicleModel from './VehicleForm';
+import NewAutomobile from './AutomobileForm';
+import SalesPersonHistoryList from './SalesHistoryList'
 
 
 
 function App() {
   const[sales, setSales] = useState([]);
-  const[salesPeople, setSalesPeople] = useState([]);
+  const[salespeople, setSalesPeople] = useState([]);
   const[technicians, setTechnicians] = useState([]);
   const[serviceappointment, setServiceappointment] = useState([]);
   const[customers, setCustomers] = useState([]);
   const[salesRecords, setSalesRecords] = useState([]);
   const[manufacturers, setManufacturers] = useState([]);
-  const[vehicles, setVehicles] = useState([]);
+  const[models, setModels] = useState([]);
   const[automobiles, setAutomobiles] = useState([]);
 
   const getSalesRecords = async () => {
@@ -57,12 +60,12 @@ function App() {
     }
   }
 
-  const getVehicles = async () => {
-    const vehicleResponse = await fetch('http://localhost:8100/api/models/');
+  const getVehicleModels = async () => {
+    const vehicleModelResponse = await fetch('http://localhost:8100/api/models/');
 
-    if (vehicleResponse.ok) {
-      const data = await vehicleResponse.json();
-      setVehicles(data.vehicle);
+    if (vehicleModelResponse.ok) {
+      const data = await vehicleModelResponse.json();
+      setModels(data.models);
     }
   }
 
@@ -122,7 +125,7 @@ useEffect( () => {
   getCustomers();
   getSalesRecords();
   getManufacturers();
-  getVehicles();
+  getVehicleModels();
   getAutomobiles()},  []);
 
   return (
@@ -133,10 +136,11 @@ useEffect( () => {
           <Route path="/" element={<MainPage />} />
           <Route path="/sales" >
             <Route path="" element={<SalesList sales={sales} getSales={getSales} />} />
-            <Route path="newrecord" element={<NewSalesRecord salesrecords={salesRecords} automobiles={automobiles} getSalesRecords={getSalesRecords} /> } />
+            <Route path="newrecord" element={<NewSalesRecord salesrecords={salesRecords} salespeople={salespeople} customers={customers} automobiles={automobiles} getSalesRecords={getSalesRecords} /> } />
           </Route>
           <Route path="/salespeople" >
-            <Route path="" element={<NewSalesPerson salespeople={salesPeople} getSalesPeople={getSalesPeople} /> } />
+            <Route path="" element={<NewSalesPerson salespeople={salespeople} getSalesPeople={getSalesPeople} /> } />
+            {/* <Route path="history" element={<SalesPersonHistoryList salespeople={salesPeople} customers={customers} automobiles={automobiles} salesrecords={salesRecords} getSalesPeople={getSalesPeople} /> } /> */}
           </Route>
           <Route path="/technicians" >
             <Route path="" element={<NewTechnician technicians={technicians} getTechnicians={getTechnicians} /> } />
@@ -152,10 +156,12 @@ useEffect( () => {
             <Route path="new" element={<NewManufacturer manufacturers={manufacturers} getManufacturers={getManufacturers} /> } />
           </Route>
           <Route path="/vehicles" >
-            <Route path="" element={<VehicleList vehicles={vehicles} getVehicles={getVehicles} /> } />
+            <Route path="" element={<VehicleList models={models} getModels={getVehicleModels} /> } />
+            <Route path="new" element={<NewVehicleModel models={models} manufacturers={manufacturers} getManufacturers={getManufacturers} getModels={getVehicleModels} /> } />
           </Route>
           <Route path="/automobiles" >
             <Route path="" element={<AutomobileList automobiles={automobiles} getAutomobiles={getAutomobiles} /> } />
+            <Route path="new" element={<NewAutomobile automobiles={automobiles} models={models} getAutomobiles={getAutomobiles} /> } />
           </Route>
         </Routes>
       </div>
