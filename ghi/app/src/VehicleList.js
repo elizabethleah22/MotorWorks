@@ -1,6 +1,5 @@
 import React from 'react'
 
-// not showing on browser
 function VehicleList({models}) {
     if (models === undefined) {
       return null;
@@ -22,6 +21,9 @@ function VehicleList({models}) {
                 <tr key={ model.id }>
                     <td>{ model.name }</td>
                     <td>{ model.manufacturer.name }</td>
+                    <td>
+                        <img src={ model.picture_url } height="100"/>
+                    </td>
                 </tr>
               );
             })}

@@ -1,12 +1,11 @@
 import React, {useState } from 'react'
 
-export default function NewSalesRecord({ automobiles, customers, salesPersons, vins, getSalesRecord }) {
+export default function NewSalesRecord({ automobiles, customers, salespeople, getSalesRecords }) {
     const [vin, setVin] = useState('');
     const [salesPerson, setSalesperson] = useState('');
     const [customer, setCustomer] = useState('');
     const [price, setPrice] = useState('')
 
-    console.log("automobiles", automobiles)
     const handleVinChange = (event) => {
         const value = event.target.value
         setVin(value)
@@ -50,7 +49,7 @@ export default function NewSalesRecord({ automobiles, customers, salesPersons, v
             setSalesperson('')
             setCustomer('')
             setPrice('')
-            getSalesRecord()
+            getSalesRecords()
         }
     }
     if (automobiles === undefined) {
@@ -74,12 +73,12 @@ export default function NewSalesRecord({ automobiles, customers, salesPersons, v
                         })}
                     </select>
                         </div>
-                        {/* <div className="mb-3">
-                        <select required onChange={handleSalesPersonChange} name="salesPerson" id="salesPerson" className="form-select" value={salesPerson}>
+                        <div className="mb-3">
+                        <select required onChange={handleSalesPersonChange} placeholder="salesperson" name="salesPerson" id="salesPerson" className="form-select" value={salesPerson}>
                             <option value="">Choose a Salesperson</option>
-                            {salesPersons.map(salesperson => {
+                            {salespeople.map(salesperson => {
                                 return (
-                                    <option key={salesperson.employee_number} value={salesperson.employee_number}>
+                                    <option key={salesperson.employee_number} value={salesperson.name}>
                                         {salesperson.name}
                                     </option>
                                 )
@@ -97,7 +96,7 @@ export default function NewSalesRecord({ automobiles, customers, salesPersons, v
                                 )
                             })}
                         </select>
-                    </div> */}
+                        </div>
                         <div className="form-floating mb-3">
                             <input onChange={handlePriceChange} placeholder="Price" required type="text" name="price" id="price" className="form-control" value={price} />
                             <label htmlFor="price">Price</label>
