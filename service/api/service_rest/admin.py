@@ -1,3 +1,24 @@
 from django.contrib import admin
+from .models import Technician, ManufacturerVO, VehicleModelVO, AutomobileVO
 
-# Register your models here.
+@admin.register(Technician)
+class TechnicianAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(ManufacturerVO)
+class ManufacturerVOAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(VehicleModelVO)
+class VehicleModelVOAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(AutomobileVO)
+class AutomobileVOAdmin(admin.ModelAdmin):
+    pass
+
+
+# admin.site.register(Technician)
+# admin.site.register(ManufacturerVO)
+# admin.site.register(VehicleModelVO)
+# admin.site.register(AutomobileVO)
