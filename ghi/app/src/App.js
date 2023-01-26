@@ -8,6 +8,7 @@ import NewTechnician from './NewTechnician';
 import NewServiceAppointment from './NewServiceAppointment';
 import NewCustomer from './CustomerForm';
 import NewSalesRecord from './SalesRecordForm';
+import ManufacturerList from './ManufacturerList'
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
   const[serviceappointment, setServiceappointment] = useState([]);
   const[customers, setCustomers] = useState([]);
   const[salesRecords, setSalesRecords] = useState([]);
+  const[manufacturers, setManufacturers] = useState([])
 
   const getSalesRecords = async () => {
     const salesRecordsResponse = await fetch('http://localhost:8090/api/salesrecords/');
@@ -35,6 +37,17 @@ function App() {
       const data = await salesResponse.json();
       const sales = data.sales;
       setSales(sales);
+    }
+  }
+
+
+  const getManufacturers = async () => {
+    const manufacturerResponse = await fetch('http://localhost:8100/api/manufacturers/');
+
+    if (manufacturerResponse.ok) {
+      const data = await manufacturerResponse.json();
+      const manufacturers = data.manufacturers;
+      setManufacturers(manufacturers);
     }
   }
 
@@ -83,7 +96,8 @@ useEffect( () => {
   getTechnicians();
   getServiceappointment();
   getCustomers();
-  getSalesRecords()},  []);
+  getSalesRecords();
+  getManufacturers()},  []);
 
   return (
     <BrowserRouter>
@@ -106,6 +120,9 @@ useEffect( () => {
           </Route>
           <Route path="/customers" >
             <Route path="" element={<NewCustomer customers={customers} getCustomers={getCustomers} /> } />
+          </Route>
+          <Route path="/manufacturers" >
+            <Route path="" element={<ManufacturerList manufacturers={manufacturers} getManufacturers={getManufacturers} /> } />
           </Route>
         </Routes>
       </div>
