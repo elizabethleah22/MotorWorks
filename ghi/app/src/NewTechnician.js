@@ -36,7 +36,7 @@ export default function NewTechnician({getTechnicians}) {
 
       setName('')
       setEmployee_number('')
-      getHats()
+      getTechnicians()
     }
   }
 

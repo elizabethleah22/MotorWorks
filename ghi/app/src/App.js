@@ -4,6 +4,7 @@ import Nav from './Nav';
 import { useEffect, useState } from 'react';
 import SalesList from './SalesList';
 import NewSalesPerson from './SalesPersonForm';
+import NewTechnician from './NewTechnician';
 
 
 function App() {
