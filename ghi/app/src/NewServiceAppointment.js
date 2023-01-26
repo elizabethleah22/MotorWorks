@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function EmployeeForm({technician}) {
+export default function NewServiceAppointment({getServiceappointment}) {
     const [customer_name, setCustomer_name] = useState('');
     const [vin, setVin] = useState('');
     const [time, setTime] = useState('');
@@ -69,6 +69,7 @@ export default function EmployeeForm({technician}) {
             setReason('')
             setVip_status('')
             setTechnician('')
+            getServiceappointment()
 
         }
     }

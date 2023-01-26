@@ -31,12 +31,13 @@ export default function NewTechnician({getTechnicians}) {
     }
     const response = await fetch(TechnicianListUrl, fetchConfig);
     if (response.ok) {
-      const newHat = await response.json();
-      console.log(newHat);
+        const newTechnician = await response.json();
+        console.log(newTechnician);
 
-      setName('')
-      setEmployee_number('')
-      getHats()
+    setName('')
+    setEmployee_number('')
+    getTechnicians()
+
     }
   }
 

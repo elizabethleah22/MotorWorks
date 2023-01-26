@@ -4,13 +4,15 @@ import Nav from './Nav';
 import { useEffect, useState } from 'react';
 import SalesList from './SalesList';
 import NewSalesPerson from './SalesPersonForm';
+import NewTechnician from './NewTechnician';
+import NewServiceAppointment from './NewServiceAppointment';
 
 
 function App() {
   const[sales, setSales] = useState([]);
   const[salesPeople, setSalesPeople] = useState([]);
   const[technicians, setTechnicians] = useState([]);
-
+  const[serviceappointment, setServiceappointment] = useState([]);
 
   const getSales = async () => {
     const salesResponse = await fetch('http://localhost:8090/api/salesrecords/');
@@ -42,7 +44,16 @@ function App() {
     }
   }
 
-useEffect( () => {getSales(); getSalesPeople(); getTechnicians()}, []);
+  const getServiceappointment = async () => {
+    const serviceappointmentResponse = await fetch('http://localhost:8080/api/serviceappointment/')
+
+    if (serviceappointmentResponse.ok) {
+      const data = await serviceappointmentResponse.json();
+      const serviceappointment = data.serviceappointment;
+      setServiceappointment(serviceappointment);
+    }
+  }
+useEffect( () => {getSales(); getSalesPeople(); getTechnicians(); getServiceappointment()},  []);
   return (
     <BrowserRouter>
       <Nav />
@@ -57,6 +68,9 @@ useEffect( () => {getSales(); getSalesPeople(); getTechnicians()}, []);
           </Route>
           <Route path="/technicians" >
             <Route path="" element={<NewTechnician technicians={technicians} getTechnicians={getTechnicians} /> } />
+          </Route>
+          <Route path="/serviceappointment" >
+            <Route path="" element={<NewServiceAppointment serviceappointment={serviceappointment} getServiceappointment={getServiceappointment} /> } />
           </Route>
         </Routes>
       </div>
