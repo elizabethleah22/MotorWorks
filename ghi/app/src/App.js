@@ -153,6 +153,7 @@ useEffect( () => {
   getCustomers();
   getSalesRecords();
   getManufacturers();
+  getVehicleModels();
   getAutomobiles()},  []);
 
   return (
@@ -166,7 +167,7 @@ useEffect( () => {
           </Route>
           <Route path="/salesrecords" >
             <Route path="" element={<SalesList sales={sales} getSales={getSales} />} />
-            <Route path="history" element={<SalesPersonHistoryList salespeople={salespeople} customers={customers} automobiles={automobiles} salesrecords={salesRecords} getSalesPeople={getSalesPeople} /> } />
+            <Route path="history" element={<SalesPersonHistoryList salespeople={salespeople} customers={customers} automobiles={automobiles} salesRecords={salesRecords} getSalesPeople={getSalesPeople} /> } />
           </Route>
           <Route path="/salespeople" >
             <Route path="" element={<NewSalesPerson salespeople={salespeople} getSalesPeople={getSalesPeople} /> } />
