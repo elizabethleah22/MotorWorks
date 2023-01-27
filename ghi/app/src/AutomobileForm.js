@@ -76,7 +76,7 @@ export default function NewAutomobile({ getAutomobiles, models }) {
                             <option value="">Choose a Model</option>
                             {models.map(model => {
                                 return (
-                                    <option key={model.id} value={model.name}>
+                                    <option key={model.id} value={model.id}>
                                         {model.name}
                                     </option>
                                 )
