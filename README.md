@@ -33,6 +33,7 @@ CarCar is made up of 3 microservices which interact with each other.
 - Services
 - Sales
 
+![Diagram](/project-beta/diagrams/CarCarDiagram.png)
 
 # Accessing Endpoints to Send and View Data: Access through Insomina & Your Browser
 
