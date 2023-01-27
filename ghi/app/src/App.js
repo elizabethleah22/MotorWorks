@@ -15,7 +15,9 @@ import AutomobileList from './AutomobileList'
 import NewVehicleModel from './VehicleForm';
 import NewAutomobile from './AutomobileForm';
 import SalesPersonHistoryList from './SalesHistoryList'
-
+import TechnicianList from './TechnicianList';
+import GetAppointmentlist from './AllAppointments';
+import ServiceHistory from './ServiceHistoryList';
 
 
 function App() {
@@ -23,11 +25,14 @@ function App() {
   const[salespeople, setSalesPeople] = useState([]);
   const[technicians, setTechnicians] = useState([]);
   const[serviceappointment, setServiceappointment] = useState([]);
+  const[appointmentlist, setAppointmentlist] = useState([]);
+  const[servicehistory, setServicehistory] = useState([]);
   const[customers, setCustomers] = useState([]);
   const[salesRecords, setSalesRecords] = useState([]);
   const[manufacturers, setManufacturers] = useState([]);
   const[models, setModels] = useState([]);
   const[automobiles, setAutomobiles] = useState([]);
+
 
   const getSalesRecords = async () => {
     const salesRecordsResponse = await fetch('http://localhost:8090/api/salesrecords/');
@@ -108,6 +113,15 @@ function App() {
     }
   }
 
+  const getAppointmentlist = async () => {
+    const appointmentlistResponse = await fetch ('http://localhost:8080/api/serviceappointment/')
+
+    if (appointmentlistResponse.ok) {
+      const data = await appointmentlistResponse.json();
+      setAppointmentlist(appointmentlist)
+    }
+  }
+
   const getServiceappointment = async () => {
     const serviceappointmentResponse = await fetch('http://localhost:8080/api/serviceappointment/')
 
@@ -117,15 +131,29 @@ function App() {
       setServiceappointment(serviceappointment);
     }
   }
+
+  const getServicehistory = async () => {
+    const servicehistoryResponse = await fetch('http://localhost:8080/api/servicehistory/')
+
+    if (servicehistoryResponse.ok) {
+      const data = await servicehistoryResponse.json();
+      const servicehistory = data;
+      setServicehistory(servicehistory);
+    }
+  }
+
+
 useEffect( () => {
   getSales();
   getSalesPeople();
   getTechnicians();
   getServiceappointment();
+  getAppointmentlist();
+  getServicehistory();
   getCustomers();
   getSalesRecords();
   getManufacturers();
-  getVehicleModels();
+  getVehicles();
   getAutomobiles()},  []);
 
   return (
@@ -143,10 +171,15 @@ useEffect( () => {
             {/* <Route path="history" element={<SalesPersonHistoryList salespeople={salesPeople} customers={customers} automobiles={automobiles} salesrecords={salesRecords} getSalesPeople={getSalesPeople} /> } /> */}
           </Route>
           <Route path="/technicians" >
-            <Route path="" element={<NewTechnician technicians={technicians} getTechnicians={getTechnicians} /> } />
+            <Route path="" element={<TechnicianList technicians={technicians} getTechnicians={TechnicianList} /> } />
+            <Route path="new" element={<NewTechnician technicians={technicians} getTechnicians={getTechnicians} />} />
           </Route>
           <Route path="/serviceappointment" >
-            <Route path="" element={<NewServiceAppointment serviceappointment={serviceappointment} getServiceappointment={getServiceappointment} /> } />
+            <Route path="new" element={<NewServiceAppointment serviceappointment={serviceappointment} getServiceappointment={getServiceappointment} /> } />
+            <Route path="" element={<GetAppointmentlist appointmentlist={appointmentlist} getServiceappointment={getServiceappointment} /> } />
+          </Route>
+          <Route path="/servicehistory" >
+            <Route path="" element={<ServiceHistory servicehistory={servicehistory} getServicehistory={getServicehistory} setServicehistory={setServicehistory} /> } />
           </Route>
           <Route path="/customers" >
             <Route path="" element={<NewCustomer customers={customers} getCustomers={getCustomers} /> } />

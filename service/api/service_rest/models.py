@@ -53,7 +53,8 @@ class AutomobileVO(models.Model):
 class ServiceAppointment(models.Model):
     vin = models.CharField(max_length=17)
     customer_name = models.CharField(max_length=200)
-    time = models.DateTimeField()
+    time = models.TimeField(null=True, auto_now_add=False)
+    date = models.DateField(null=True, auto_now_add=False)
     reason = models.TextField()
     vip_status = models.BooleanField(default=False)
     technician = models.ForeignKey(

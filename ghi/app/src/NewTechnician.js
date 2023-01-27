@@ -1,6 +1,6 @@
-import React, {useState } from 'react'
+import React, { useState } from 'react'
 
-export default function NewTechnician({getTechnicians}) {
+export default function NewTechnician({ getTechnicians }) {
     const [name, setName] = useState('');
     const [employee_number, setEmployee_number] = useState('');
 
