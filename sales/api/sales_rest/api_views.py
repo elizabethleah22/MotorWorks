@@ -114,6 +114,55 @@ def api_list_sales(request):
             safe=False,
         )
 
+@require_http_methods(["GET", "DELETE", "PUT"])
+def api_show_salesrecord(request, id):
+    if request.method == "GET":
+        try:
+            salesrecords = SalesRecord.objects.get(id=id)
+            return JsonResponse(
+                salesrecords,
+                encoder=SalesRecordEncoder,
+                safe=False
+            )
+        except SalesRecord.DoesNotExist:
+            return JsonResponse(
+                {"message": "salesrecord does not exist"}
+            )
+
+    elif request.method == "DELETE":
+        count, _ = SalesRecord.objects.filter(id=id).delete()
+        return JsonResponse({"deleted": count > 0})
+
+    else:
+        content = json.loads(request.body)
+
+        try:
+
+            salesperson = content["salesperson"]
+            salesperson = SalesPerson.objects.get(name=salesperson)
+            content["salesperson"] = salesperson
+
+            customer_name = content["customer"]
+            customer = Customer.objects.get(name=customer_name)
+            content["customer"] = customer
+
+            vin_number = content["vin"]
+            vin = AutomobileVO.objects.get(vin=vin_number)
+            content["vin"] = vin
+
+        except AutomobileVO.DoesNotExist:
+            return JsonResponse(
+                {"message": "automobile does not exist"},
+                status=400,
+            )
+
+        salesrecord = SalesRecord.objects.create(**content)
+        return JsonResponse(
+            salesrecord,
+            encoder=SalesRecordEncoder,
+            safe=False,
+        )
+
 
 @require_http_methods(["GET", "POST"])
 def api_list_salespeople(request):
@@ -160,8 +209,3 @@ def api_show_salesperson(request, pk):
             )
         except SalesPerson.DoesNotExist:
             return JsonResponse({"message": "Salesperson does not exist"})
-
-
-# @require_http_methods(["GET", "DELETE"])
-# def api_show_salesperson_record(request, pk):
-#     pass

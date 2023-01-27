@@ -135,12 +135,14 @@ useEffect( () => {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/sales" >
-            <Route path="" element={<SalesList sales={sales} getSales={getSales} />} />
             <Route path="newrecord" element={<NewSalesRecord salesrecords={salesRecords} salespeople={salespeople} customers={customers} automobiles={automobiles} getSalesRecords={getSalesRecords} /> } />
+          </Route>
+          <Route path="/salesrecords" >
+            <Route path="" element={<SalesList sales={sales} getSales={getSales} />} />
+            <Route path="history" element={<SalesPersonHistoryList salespeople={salespeople} customers={customers} automobiles={automobiles} salesrecords={salesRecords} getSalesPeople={getSalesPeople} /> } />
           </Route>
           <Route path="/salespeople" >
             <Route path="" element={<NewSalesPerson salespeople={salespeople} getSalesPeople={getSalesPeople} /> } />
-            {/* <Route path="history" element={<SalesPersonHistoryList salespeople={salesPeople} customers={customers} automobiles={automobiles} salesrecords={salesRecords} getSalesPeople={getSalesPeople} /> } /> */}
           </Route>
           <Route path="/technicians" >
             <Route path="" element={<NewTechnician technicians={technicians} getTechnicians={getTechnicians} /> } />
