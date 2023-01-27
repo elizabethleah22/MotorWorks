@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 
+
 export default function NewServiceAppointment({getServiceappointment}) {
     const [customer_name, setCustomer_name] = useState('');
     const [vin, setVin] = useState('');
     const [time, setTime] = useState('');
+    const [date, setDate] = useState('');
     const [reason, setReason] = useState('');
     const [vip_status, setVip_status] = useState('');
     const [technician, setTechnician] = useState('');
@@ -22,6 +24,11 @@ export default function NewServiceAppointment({getServiceappointment}) {
     const handleTimeChange = (event) => {
         const value = event.target.value
         setTime(value)
+    }
+
+    const handleDateChange = (event) => {
+        const value = event.target.value
+        setDate(value)
     }
 
     const handleReasonChange = (event) => {
@@ -45,6 +52,7 @@ export default function NewServiceAppointment({getServiceappointment}) {
         data.customer_name = customer_name;
         data.vin = vin;
         data.time = time;
+        data.date = date;
         data.reason = reason;
         data.vip_status = vip_status;
         data.technician = technician;
@@ -66,6 +74,7 @@ export default function NewServiceAppointment({getServiceappointment}) {
             setCustomer_name('')
             setVin('')
             setTime('')
+            setDate('')
             setReason('')
             setVip_status('')
             setTechnician('')
@@ -73,6 +82,7 @@ export default function NewServiceAppointment({getServiceappointment}) {
 
         }
     }
+
 
   return (
     <div className="row">
@@ -89,8 +99,12 @@ export default function NewServiceAppointment({getServiceappointment}) {
                         <label htmlFor="vin">Vin</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input onChange={handleTimeChange} placeholder="Time" required type="text" name="time" id="time" className="form-control" value={time} />
+                        <input onChange={handleTimeChange} placeholder="Time" required type="time" name="time" id="time" className="form-control" value={time} />
                         <label htmlFor="time">Time</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                        <input onChange={handleDateChange} placeholder="Date" required type="date" name="date" id="date" className="form-control" value={date} />
+                        <label htmlFor="date">Date</label>
                     </div>
                     <div className="form-floating mb-3">
                         <input onChange={handleReasonChange} placeholder="Reason" required type="text" name="reason" id="reason" className="form-control" value={reason} />

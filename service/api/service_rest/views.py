@@ -53,26 +53,13 @@ class ServiceAppointmentListEncoder(ModelEncoder):
         "vin",
         "customer_name",
         "time",
+        "date",
         "reason",
         "vip_status",
         "technician"
     ]
     def get_extra_data(self, o):
         return {"technician": o.technician.name}
-
-
-
-# class ServiceHistoryEncoder(ModelEncoder):
-#     model = ServiceHistory
-#     properties = [
-#         "vin",
-#         "customer_name",
-#         "time",
-#         "reason",
-#         "technician"
-#     ]
-#     def get_extra_data(self, o):
-#         return {"technician": o.technician.name}
 
 
 @require_http_methods(['GET', 'POST'])
@@ -164,7 +151,6 @@ def api_service_history(request, vin):
             return JsonResponse(
                 {"service_history": service_history},
                 encoder=ServiceAppointmentListEncoder,
-                status=400
             )
         except ServiceAppointment.DoesNotExist:
             return JsonResponse(
@@ -173,3 +159,93 @@ def api_service_history(request, vin):
             )
     else:
         pass
+
+
+
+@require_http_methods(['GET', 'POST'])
+def api_list_technicians(request):
+
+    if request.method == 'GET':
+        technicians = Technician.objects.all()
+        return JsonResponse(
+            {'technicians': technicians},
+            encoder=TechnicianEncoder
+        )
+    else:
+        content = json.loads(request.body)
+        technician = Technician.objects.create(**content)
+        return JsonResponse(
+            technician,
+            encoder=TechnicianEncoder,
+            safe=False,
+        )
+
+
+@require_http_methods(["GET", "DELETE"])
+def api_technician_detail(request, pk):
+
+    if request.method == "GET":
+        technician = Technician.objects.get(id=pk)
+        return JsonResponse(
+            technician,
+            encoder=TechnicianEncoder,
+            safe=False
+        )
+    else:
+        count, _ = Technician.objects.filter(id=id).delete()
+        return JsonResponse({"deleted": count > 0})
+
+
+@require_http_methods(["GET", "POST"])
+def api_service_history_list(request):
+    if request.method == "GET":
+        history = ServiceAppointment.objects.all()
+        return JsonResponse(
+            history,
+            encoder=ServiceAppointmentListEncoder,
+            safe=False
+        )
+
+
+
+
+# @require_http_methods(["GET", "POST"])
+# def api_service_appointment_list(request):
+#     if request.method == "GET":
+#         service_appointment = ServiceAppointment.objects.all()
+#         for appointment in service_appointment:
+#             appointment.time = appointment.time.strftime("%H:%M:%S")
+#         json_data = json.dumps(
+#             {'service_appointment': list(service_appointment)},
+#             cls=DjangoJSONEncoder,
+#             encoders=ServiceAppointmentListEncoder
+#         )
+#         return JsonResponse(json.loads(json_data))
+#         # return JsonResponse(
+#         #     {'service_appointment': service_appointment},
+#         #     encoder=ServiceAppointmentListEncoder,
+#         # )
+#     else:
+#         content = json.loads(request.body)
+#         try:
+#             technician_name = content["technician"]
+#             technician = Technician.objects.get(name=technician_name)
+#             content["technician"] = technician
+#             try:
+#                 automobile = AutomobileVO.objects.get(vin=content["vin"])
+#                 if automobile:
+#                     content["vip_status"] = True
+#             except AutomobileVO.DoesNotExist:
+#                 pass
+#         except Technician.DoesNotExist:
+#             return JsonResponse(
+#                 {"message": "Invalid Technician"},
+#                 status=400
+#             )
+#         service_appointment = ServiceAppointment.objects.create(**content)
+#         service_appointment_time = service_appointment.time.strftime("%H:%M:%S")
+#         json_data = json.dumps(
+#             service_appointment,
+#             cls=DjangoJSONEncoder
+#         )
+#         return JsonResponse(json.loads(json_data), safe=False)
