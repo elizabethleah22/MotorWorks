@@ -26,7 +26,7 @@ docker-compose up
 
 - View the project in the browser: http://localhost:3000/
 
-![Img](/images/CarCarwebsite.png)
+![Img](/images/CarCarWebsite.png)
 
 ## Design
 
