@@ -25,7 +25,6 @@ export default function ServiceHistory ({  }) {
     const response = await fetch (ServiceHistoryAppointmentUrl, fetchConfig);
     if (response.ok) {
         const servicehistory = await response.json();
-        console.log(servicehistory);
 
     setVin('')
     getServiceAppointmentHistory()

@@ -4,7 +4,6 @@ function AutomobileList({automobiles}) {
     if (automobiles === undefined) {
       return null;
     }
-    console.log(automobiles)
     return (
       <div className="container">
         <h1>Vehicle Models</h1>

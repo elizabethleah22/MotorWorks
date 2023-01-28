@@ -25,6 +25,7 @@ class SalesPersonEncoder(ModelEncoder):
 class CustomerDetailEncoder(ModelEncoder):
     model = Customer
     properties = [
+        "id",
         "name",
         "address",
         "phone_number"
@@ -46,16 +47,6 @@ class SalesRecordEncoder(ModelEncoder):
         "salesperson": SalesPersonEncoder(),
         "vin": AutomobileVODetailEncoder()
     }
-
-    # def get_extra_data(self, o):
-    #     return {"salesperson": o.salesperson.name}
-
-    # def get_extra_data(self, o):
-    #     return {"customer": o.customer.name}
-
-    # def get_extra_data(self, o):
-    #     return {"vin": o.vin.vin}
-
 
 @require_http_methods(["GET", "POST"])
 def api_list_customers(request):
@@ -209,3 +200,17 @@ def api_show_salesperson(request, pk):
             )
         except SalesPerson.DoesNotExist:
             return JsonResponse({"message": "Salesperson does not exist"})
+
+@require_http_methods(["GET"])
+def api_show_customer(request, id):
+    try:
+        customer = Customer.objects.get(id=id)
+        return JsonResponse(
+            customer,
+            encoder=CustomerDetailEncoder,
+            safe=False
+        )
+    except Customer.DoesNotExist:
+        return JsonResponse(
+            {"message": "customer does not exist"}
+        )

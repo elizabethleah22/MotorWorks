@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
-export default function NewServiceAppointment({getServiceappointment}) {
+export default function NewServiceAppointment({getServiceappointment, technicians}) {
     const [customer_name, setCustomer_name] = useState('');
     const [vin, setVin] = useState('');
     const [time, setTime] = useState('');
     const [date, setDate] = useState('');
     const [reason, setReason] = useState('');
-    const [vip_status, setVip_status] = useState('');
     const [technician, setTechnician] = useState('');
 
 
@@ -36,15 +35,12 @@ export default function NewServiceAppointment({getServiceappointment}) {
         setReason(value)
 
     }
-    const handleVip_statusChange = (event) => {
-        const value = event.target.value
-        setVip_status(value)
-    }
 
     const handleTechnicianChange = (event) => {
         const value = event.target.value
         setTechnician(value)
     }
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -54,7 +50,6 @@ export default function NewServiceAppointment({getServiceappointment}) {
         data.time = time;
         data.date = date;
         data.reason = reason;
-        data.vip_status = vip_status;
         data.technician = technician;
 
         const NewServiceAppointmentUrl = 'http://localhost:8080/api/serviceappointment/';
@@ -69,14 +64,12 @@ export default function NewServiceAppointment({getServiceappointment}) {
         const response = await fetch(NewServiceAppointmentUrl, fetchConfig);
         if (response.ok) {
             const NewServiceAppointment = await response.json();
-            console.log(NewServiceAppointment);
 
             setCustomer_name('')
             setVin('')
             setTime('')
             setDate('')
             setReason('')
-            setVip_status('')
             setTechnician('')
             getServiceappointment()
 
@@ -111,13 +104,16 @@ export default function NewServiceAppointment({getServiceappointment}) {
                         <label htmlFor="reason">Reason</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input onChange={handleVip_statusChange} placeholder="VIP Status" required type="text" name="vip_status" id="vip_status" className="form-control" value={vip_status} />
-                        <label htmlFor="vip_status">VIP Status</label>
-                    </div>
-                    <div className="form-floating mb-3">
-                        <input onChange={handleTechnicianChange} placeholder="Technician" required type="text" name="technician" id="technician" className="form-control" value={technician} />
-                        <label htmlFor="technician">Technician</label>
-                    </div>
+                            <select onChange={handleTechnicianChange} value={technician} placeholder="Technician id" required name="technician" id="technician" className="form-select">
+                                <option value="">Choose a technician</option>
+                                {technicians.map(techs => {
+                                    return (
+                                        <option key={techs.id} value={techs.name}>
+                                            {techs.name}</option>
+                                    )
+                                })}
+                            </select>
+                        </div>
                     <button className="btn btn-primary">Create</button>
                 </form>
             </div>

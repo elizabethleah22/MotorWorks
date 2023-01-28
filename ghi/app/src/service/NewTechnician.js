@@ -32,7 +32,6 @@ export default function NewTechnician({ getTechnicians }) {
     const response = await fetch(TechnicianListUrl, fetchConfig);
     if (response.ok) {
         const newTechnician = await response.json();
-        console.log(newTechnician);
 
     setName('')
     setEmployee_number('')
@@ -40,9 +39,6 @@ export default function NewTechnician({ getTechnicians }) {
 
     }
   }
-
-  // How can we refactor these handleChange methods to make
-  // a single method, like the ConferenceForm above?
 
   return (
     <div className="row">

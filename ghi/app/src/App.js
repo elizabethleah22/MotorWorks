@@ -2,22 +2,22 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from './MainPage';
 import Nav from './Nav';
 import { useEffect, useState } from 'react';
-import SalesList from './SalesList';
-import NewSalesPerson from './SalesPersonForm';
-import NewTechnician from './NewTechnician';
-import NewServiceAppointment from './NewServiceAppointment';
-import NewCustomer from './CustomerForm';
-import NewSalesRecord from './SalesRecordForm';
-import ManufacturerList from './ManufacturerList';
-import VehicleList from './VehicleList';
-import NewManufacturer from './ManufacturerForm';
-import AutomobileList from './AutomobileList'
-import NewVehicleModel from './VehicleForm';
-import NewAutomobile from './AutomobileForm';
-import SalesPersonHistoryList from './SalesHistoryList'
-import TechnicianList from './TechnicianList';
-import GetAppointmentlist from './AllAppointments';
-import ServiceHistory from './ServiceHistoryList';
+import SalesList from './sales/SalesList';
+import NewSalesPerson from './sales/SalesPersonForm';
+import NewTechnician from './service/NewTechnician';
+import NewServiceAppointment from './service/NewServiceAppointment';
+import NewCustomer from './sales/CustomerForm';
+import NewSalesRecord from './sales/SalesRecordForm';
+import ManufacturerList from './inventory/ManufacturerList';
+import VehicleList from './inventory/VehicleList';
+import NewManufacturer from './inventory/ManufacturerForm';
+import AutomobileList from './inventory/AutomobileList'
+import NewVehicleModel from './inventory/VehicleForm';
+import NewAutomobile from './inventory/AutomobileForm';
+import SalesPersonHistoryList from './sales/SalesHistoryList'
+import TechnicianList from './service/TechnicianList';
+import GetAppointmentlist from './service/AllAppointments';
+import ServiceHistory from './service/ServiceHistoryList';
 
 
 function App() {

@@ -1,6 +1,6 @@
 # CarCar
 
-CarCar is an application for managing aspects of an automobile dealership. It manages the inventory, automobile sales, and automobile services.
+CarCar is an application for managing the aspects of an automobile dealership. It manages the inventory, automobile sales, and automobile services.
 
 Team:
 
@@ -17,10 +17,11 @@ Team:
 git clone <<respository.url.here>>
 
 3. Build and run the project using Docker with these commands:
+```
 docker volume create beta-data
 docker-compose build
 docker-compose up
-
+```
 - After running these commands, make sure all of your Docker containers are running
 
 - View the project in the browser: http://localhost:3000/
@@ -29,7 +30,7 @@ docker-compose up
 
 ## Design
 
-CarCar is made up of 3 microservices which interact with each other.
+CarCar is made up of 3 microservices which interact with one another.
 
 - **Inventory**
 - **Services**
@@ -40,27 +41,29 @@ CarCar is made up of 3 microservices which interact with each other.
 
 ## Integration - How we put the "team" in "team"
 
-Our Inventory team and Sales team work together with our Service team to make everything here at **CarCar** possible.
+Our Inventory and Sales domains work together with our Service domain to make everything here at **CarCar** possible.
 
-How this all starts is at our inventory domain. We have a record of automobiles on our lot that are available to buy. Our other sales domain service domain obtain information from the inventory domain using a **poller**, which talks to the inventory domain to keep track of which vehicles we have in our inventory, so that the service and sales team always has up-to-date information.
+How this all starts is at our inventory domain. We keep a record of automobiles on our lot that are available to buy. Our sales and service microservices obtain information from the inventory domain, using a **poller**, which talks to the inventory domain to keep track of which vehicles we have in our inventory so that the service and sales team always has up-to-date information.
 
 
-## Accessing Endpoints to Send and View Data: Access through Insomina & Your Browser
+## Accessing Endpoints to Send and View Data: Access Through Insomnia & Your Browser
 
 ### Manufacturers:
+
 
 | Action | Method | URL
 | ----------- | ----------- | ----------- |
 | List manufacturers | GET | http://localhost:8100/api/manufacturers/
 | Create a manufacturer | POST | http://localhost:8100/api/manufacturers/ |
-| Get a specific manufacturer | GET | http://localhost:8100/api/manufacturers/:id/
-| Update a specific manufacturer | PUT | http://localhost:8100/api/manufacturers/:id/
-| Delete a specific manufacturer | DELETE | http://localhost:8100/api/manufacturers/:id/
+| Get a specific manufacturer | GET | http://localhost:8100/api/manufacturers/id/
+| Update a specific manufacturer | PUT | http://localhost:8100/api/manufacturers/id/
+| Delete a specific manufacturer | DELETE | http://localhost:8100/api/manufacturers/id/
 
 
 JSON body to send data:
 
 Create and Update a manufacturer (SEND THIS JSON BODY):
+- You cannot make two manufacturers with the same name
 ```
 {
   "name": "Chrysler"
@@ -93,11 +96,11 @@ Getting a list of manufacturers return value:
 | ----------- | ----------- | ----------- |
 | List vehicle models | GET | http://localhost:8100/api/models/
 | Create a vehicle model | POST | http://localhost:8100/api/models/
-| Get a specific vehicle model | GET | http://localhost:8100/api/models/:id/
-| Update a specific vehicle model | PUT | http://localhost:8100/api/models/:id/
-| Delete a specific vehicle model | DELETE | http://localhost:8100/api/models/:id/
+| Get a specific vehicle model | GET | http://localhost:8100/api/models/id/
+| Update a specific vehicle model | PUT | http://localhost:8100/api/models/id/
+| Delete a specific vehicle model | DELETE | http://localhost:8100/api/models/id/
 
-Create and Update a vehicle model (SEND THIS JSON BODY):
+Create and update a vehicle model (SEND THIS JSON BODY):
 ```
 {
   "name": "Sebring",
@@ -106,7 +109,7 @@ Create and Update a vehicle model (SEND THIS JSON BODY):
 }
 ```
 
-Updating a vehile model can take the name and/or picture URL:
+Updating a vehicle model can take the name and/or picture URL:
 ```
 {
   "name": "Sebring",
@@ -114,7 +117,7 @@ Updating a vehile model can take the name and/or picture URL:
 }
 ```
 Return value of creating or updating a vehicle model:
-- this returns the manufacturer's information as well
+- This returns the manufacturer's information as well
 ```
 {
   "href": "/api/models/1/",
@@ -148,17 +151,19 @@ Getting a List of Vehicle Models Return Value:
 ```
 
 ### Automobiles:
-- the 'vin' at the end of the detail urls represents the VIN for the specific automobile you want to access. This is not an integer ID.
+- The **'vin'** at the end of the detail urls represents the VIN for the specific automobile you want to access. This is not an integer ID. This is a string value so you can use numbers and/or letters.
 
 | Action | Method | URL
 | ----------- | ----------- | ----------- |
 | List automobiles | GET | http://localhost:8100/api/automobiles/
 | Create an automobile | POST | http://localhost:8100/api/automobiles/
-| Get a specific automobile | GET | http://localhost:8100/api/automobiles/:vin/
-| Update a specific automobile | PUT | http://localhost:8100/api/automobiles/:vin/
-| Delete a specific automobile | DELETE | http://localhost:8100/api/automobiles/:vin/
+| Get a specific automobile | GET | http://localhost:8100/api/automobiles/vin/
+| Update a specific automobile | PUT | http://localhost:8100/api/automobiles/vin/
+| Delete a specific automobile | DELETE | http://localhost:8100/api/automobiles/vin/
+
 
 Create an automobile (SEND THIS JSON BODY):
+- You cannot make two automobiles with the same vin
 ```
 {
   "color": "red",
@@ -246,11 +251,11 @@ Getting a list of Automobile Return Value:
 ```
 # Sales Microservice
 
-On the backend, the sales microservice has 4 models: AutomobileVO, Customer, SalesPerson, and SalesRecord. SalesRecord is the model that interacts with the other three models. The model gets data from the three other models.
+On the backend, the sales microservice has 4 models: AutomobileVO, Customer, SalesPerson, and SalesRecord. SalesRecord is the model that interacts with the other three models. This model gets data from the three other models.
 
-The AutomobileVO is a value object that gets data about the automobiles in the inventory, using a poller. The sales poller automotically polls the inventory microservice for data, so the sales microservice is constantly getting the updated data.
+The AutomobileVO is a value object that gets data about the automobiles in the inventory using a poller. The sales poller automotically polls the inventory microservice for data, so the sales microservice is constantly getting the updated data.
 
-The reason for integration between these two microservices is that when recording a new sale, you'll need to choose which car is being sold, and that information lives inside of the inventory microservice.
+The reason for integration between these two microservices is that when recording a new sale, you'll need to choose which car is being sold and that information lives inside of the inventory microservice.
 
 
 ## Accessing Endpoints to Send and View Data - Access through Insomnia:
@@ -262,6 +267,7 @@ The reason for integration between these two microservices is that when recordin
 | ----------- | ----------- | ----------- |
 | List customers | GET | http://localhost:8090/api/customers/
 | Create a customer | POST | http://localhost:8090/api/customers/
+| Show a specific customer | GET | http://localhost:8090/api/customers/id/
 
 To create a Customer (SEND THIS JSON BODY):
 ```
@@ -274,6 +280,7 @@ To create a Customer (SEND THIS JSON BODY):
 Return Value of Creating a Customer:
 ```
 {
+	"id: "1",
 	"name": "John Johns",
 	"address": "1212 Ocean Street",
 	"phone_number": 9804357878
@@ -284,11 +291,13 @@ Return value of Listing all Customers:
 {
 	"customers": [
 		{
+			"id",
 			"name": "Martha Stewart",
 			"address": "1313 Baker Street",
 			"phone_number": "980720890"
 		},
 		{
+			"id",
 			"name": "John Johns",
 			"address": "1212 Ocean Street",
 			"phone_number": "9804357878"
@@ -300,9 +309,9 @@ Return value of Listing all Customers:
 | Action | Method | URL
 | ----------- | ----------- | ----------- |
 | List salespeople | GET | http://localhost:8090/api/salespeople/
-| Salesperson details | GET | http://localhost:8090/api/salesperson/int:id/
+| Salesperson details | GET | http://localhost:8090/api/salesperson/id/
 | Create a salesperson | POST | http://localhost:8090/api/salespeople/
-| Delete a salesperson | DELETE | http://localhost:8090/api/salesperson/int:id/
+| Delete a salesperson | DELETE | http://localhost:8090/api/salesperson/id/
 
 
 To create a salesperson (SEND THIS JSON BODY):
@@ -339,7 +348,7 @@ List all salespeople Return Value:
 | ----------- | ----------- | ----------- |
 | List all salesrecords | GET | http://localhost:8090/api/salesrecords/
 | Create a new sale | POST | http://localhost:8090/api/salesrecords/
-| Show salesperson's salesrecords | GET | http://localhost:8090/api/salesrecords/int:id/
+| Show salesperson's salesrecords | GET | http://localhost:8090/api/salesrecords/id/
 List all Salesrecords Return Value:
 ```
 {
@@ -387,6 +396,7 @@ Return Value of Creating a New Sale:
 		"employee_number": 1
 	},
 	"customer": {
+		"id",
 		"name": "John Johns",
 		"address": "1212 Ocean Street",
 		"phone_number": "9804357878"
@@ -407,6 +417,7 @@ Show a Salesperson's Salesrecord Return Value:
 		"employee_number": 1
 	},
 	"customer": {
+		"id",
 		"name": "Martha Stewart",
 		"address": "1313 Baker Street",
 		"phone_number": "980720890"

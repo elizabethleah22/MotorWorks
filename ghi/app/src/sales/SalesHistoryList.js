@@ -17,7 +17,7 @@ function SalesPersonHistoryList({salespeople}) {
 
         }
     }
-    console.log(salesRecord)
+
     return (
       <div className="container">
         <h1>Salesperson History</h1>
