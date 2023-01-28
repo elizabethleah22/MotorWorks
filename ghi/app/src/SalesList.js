@@ -6,6 +6,7 @@ function SalesList({sales}) {
       }
     return (
       <div className="container">
+        <h1>All Sales</h1>
         <table className="table table-striped">
           <thead>
             <tr>
