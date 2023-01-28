@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import api_list_technicians, api_technician_detail, api_service_appointment_list
-from .views import api_service_appointment_detail, api_service_history_list, api_service_history
+from .views import api_service_appointment_detail, api_service_history_list, api_service_history, api_service_history_delete
 
 
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
     path("serviceappointment/<int:pk>/", api_service_appointment_detail, name="service_appointment_detail"),
     path("servicehistory/", api_service_history_list, name="service_history_list"),
     path("servicehistory/<str:vin>/", api_service_history, name="service_history"),
+    path("servicehistory/<int:vin>/", api_service_history_delete, name="service_history_delete")
 ]

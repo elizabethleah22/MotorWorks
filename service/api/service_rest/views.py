@@ -161,6 +161,13 @@ def api_service_history(request, vin):
         pass
 
 
+@require_http_methods(["DELETE"])
+def api_service_history_delete(request, id):
+    if request.method == "DELETE":
+        count, _ = ServiceAppointment.objects.filter(id=id).delete()
+        return JsonResponse({"deleted": count > 0})
+
+
 
 @require_http_methods(['GET', 'POST'])
 def api_list_technicians(request):
@@ -192,7 +199,7 @@ def api_technician_detail(request, pk):
             safe=False
         )
     else:
-        count, _ = Technician.objects.filter(id=id).delete()
+        count, _ = Technician.objects.filter(id=pk).delete()
         return JsonResponse({"deleted": count > 0})
 
 
@@ -205,47 +212,3 @@ def api_service_history_list(request):
             encoder=ServiceAppointmentListEncoder,
             safe=False
         )
-
-
-
-
-# @require_http_methods(["GET", "POST"])
-# def api_service_appointment_list(request):
-#     if request.method == "GET":
-#         service_appointment = ServiceAppointment.objects.all()
-#         for appointment in service_appointment:
-#             appointment.time = appointment.time.strftime("%H:%M:%S")
-#         json_data = json.dumps(
-#             {'service_appointment': list(service_appointment)},
-#             cls=DjangoJSONEncoder,
-#             encoders=ServiceAppointmentListEncoder
-#         )
-#         return JsonResponse(json.loads(json_data))
-#         # return JsonResponse(
-#         #     {'service_appointment': service_appointment},
-#         #     encoder=ServiceAppointmentListEncoder,
-#         # )
-#     else:
-#         content = json.loads(request.body)
-#         try:
-#             technician_name = content["technician"]
-#             technician = Technician.objects.get(name=technician_name)
-#             content["technician"] = technician
-#             try:
-#                 automobile = AutomobileVO.objects.get(vin=content["vin"])
-#                 if automobile:
-#                     content["vip_status"] = True
-#             except AutomobileVO.DoesNotExist:
-#                 pass
-#         except Technician.DoesNotExist:
-#             return JsonResponse(
-#                 {"message": "Invalid Technician"},
-#                 status=400
-#             )
-#         service_appointment = ServiceAppointment.objects.create(**content)
-#         service_appointment_time = service_appointment.time.strftime("%H:%M:%S")
-#         json_data = json.dumps(
-#             service_appointment,
-#             cls=DjangoJSONEncoder
-#         )
-#         return JsonResponse(json.loads(json_data), safe=False)

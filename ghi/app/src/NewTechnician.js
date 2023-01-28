@@ -41,9 +41,6 @@ export default function NewTechnician({ getTechnicians }) {
     }
   }
 
-  // How can we refactor these handleChange methods to make
-  // a single method, like the ConferenceForm above?
-
   return (
     <div className="row">
         <div className="offset-3 col-6">

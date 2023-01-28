@@ -6,6 +6,18 @@ function ServiceHistory({}) {
   const[servicehistory, setServicehistory] = useState([]);
   const[vins, setVins] = useState('');
 
+  const deleteAppointment = async(service) => {
+    const appointmentUrl = `http://localhost:8080/api/serviceappointment/${service.id}/`;
+    const fetchConfig = {
+        method: "delete",
+    }
+    const response = await fetch(appointmentUrl, fetchConfig)
+    console.log("response", response)
+    if (response.ok) {
+        getServicehistory();
+    }
+}
+
 
   const getServicehistory = async () => {
     const servicehistoryResponse = await fetch('http://localhost:8080/api/servicehistory/')
@@ -41,11 +53,6 @@ function ServiceHistory({}) {
     return (
       <div className="container">
         <h4>Search Appointment by VIN</h4>
-        {/* <form onClick={handleSearch} id="filter-by-vin-form">
-          <input onChange={handleVinChange} value={vins} type="search" className="form-control rounded" placeholder="VIN" aria-describedby="search-addon" />
-          <button className="btn btn-outline-primary">Search</button>
-        </form> */}
-
           <input onChange={handleVinChange} type="search" value={vins} className="form-control rounded" placeholder="Search VIN" aria-label="Search" aria-describedby="search-addon" />
             <button variant="contained" size="medium" style={{backgroundColor:"black",
             fontWeight:"normal", color:"white" }} onClick={handleSearch} >Search VIN</button>
@@ -68,10 +75,12 @@ function ServiceHistory({}) {
                 <tr key={ service.id }>
                     <td>{ service.customer_name }</td>
                     <td>{ service.vin } </td>
-                    <td>{ service.vip_status }</td>
+                    <td>{String(service.vip_status)}</td>
                     <td>{ service.date }</td>
                     <td>{ service.technician }</td>
                     <td>{ service.reason }</td>
+                    <td><button type="button" className="btn btn-success" onClick={() => deleteAppointment(service)}>Complete</button></td>
+                    <td><button className="btn btn-danger" onClick={() => deleteAppointment(service)}>Cancel</button></td>
                 </tr>
               );
             })}

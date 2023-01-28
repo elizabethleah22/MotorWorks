@@ -13,6 +13,7 @@ function GetAppointmentlist({ appointmentlist }) {
             <tr>
                 <th>Customer Name</th>
                 <th>VIN</th>
+                <th>VIP</th>
                 <th>Time</th>
                 <th>Date</th>
                 <th>Technician</th>
@@ -22,8 +23,10 @@ function GetAppointmentlist({ appointmentlist }) {
           <tbody>
             {appointmentlist.map(appointment => {
               return (
-                <tr key={ appointment.customer_name }>
-                    <td>{ appointment.autos.vin } </td>
+                <tr key={ appointment.id }>
+                    <td>{ appointment.customer_name}</td>
+                    <td>{ appointment.vin } </td>
+                    <td>{ String(appointment.vip_status) }</td>
                     <td>{ appointment.time }</td>
                     <td>{ appointment.date }</td>
                     <td>{ appointment.technician }</td>

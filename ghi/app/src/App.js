@@ -118,7 +118,7 @@ function App() {
 
     if (appointmentlistResponse.ok) {
       const data = await appointmentlistResponse.json();
-      setAppointmentlist(appointmentlist)
+      setAppointmentlist(data.service_appointment)
     }
   }
 
@@ -141,6 +141,7 @@ function App() {
       setServicehistory(servicehistory);
     }
   }
+
 
 
 useEffect( () => {
@@ -177,7 +178,7 @@ useEffect( () => {
             <Route path="new" element={<NewTechnician technicians={technicians} getTechnicians={getTechnicians} />} />
           </Route>
           <Route path="/serviceappointment" >
-            <Route path="new" element={<NewServiceAppointment serviceappointment={serviceappointment} getServiceappointment={getServiceappointment} /> } />
+            <Route path="new" element={<NewServiceAppointment serviceappointment={serviceappointment} technicians={technicians} getServiceappointment={getServiceappointment} /> } />
             <Route path="" element={<GetAppointmentlist appointmentlist={appointmentlist} getServiceappointment={getServiceappointment} /> } />
           </Route>
           <Route path="/servicehistory" >
