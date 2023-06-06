@@ -30,6 +30,7 @@ class VehicleModelVODetailEncoder(ModelEncoder):
         "picture_url",
         "manufacturer",
     ]
+
     def get_extra_data(self, o):
         return {"manufacturer": o.manufacturer.id}
 
@@ -42,6 +43,7 @@ class AutomobileVODetailEncoder(ModelEncoder):
         "vin",
         "model",
     ]
+
     def get_extra_data(self, o):
         return {"model": o.model.id}
 
@@ -58,6 +60,7 @@ class ServiceAppointmentListEncoder(ModelEncoder):
         "vip_status",
         "technician"
     ]
+
     def get_extra_data(self, o):
         return {"technician": o.technician.name}
 
@@ -157,9 +160,6 @@ def api_service_history(request, vin):
                 {"message": "service_history does not exist"},
                 status=400,
             )
-    else:
-        pass
-
 
 
 @require_http_methods(['GET', 'POST'])
@@ -205,47 +205,3 @@ def api_service_history_list(request):
             encoder=ServiceAppointmentListEncoder,
             safe=False
         )
-
-
-
-
-# @require_http_methods(["GET", "POST"])
-# def api_service_appointment_list(request):
-#     if request.method == "GET":
-#         service_appointment = ServiceAppointment.objects.all()
-#         for appointment in service_appointment:
-#             appointment.time = appointment.time.strftime("%H:%M:%S")
-#         json_data = json.dumps(
-#             {'service_appointment': list(service_appointment)},
-#             cls=DjangoJSONEncoder,
-#             encoders=ServiceAppointmentListEncoder
-#         )
-#         return JsonResponse(json.loads(json_data))
-#         # return JsonResponse(
-#         #     {'service_appointment': service_appointment},
-#         #     encoder=ServiceAppointmentListEncoder,
-#         # )
-#     else:
-#         content = json.loads(request.body)
-#         try:
-#             technician_name = content["technician"]
-#             technician = Technician.objects.get(name=technician_name)
-#             content["technician"] = technician
-#             try:
-#                 automobile = AutomobileVO.objects.get(vin=content["vin"])
-#                 if automobile:
-#                     content["vip_status"] = True
-#             except AutomobileVO.DoesNotExist:
-#                 pass
-#         except Technician.DoesNotExist:
-#             return JsonResponse(
-#                 {"message": "Invalid Technician"},
-#                 status=400
-#             )
-#         service_appointment = ServiceAppointment.objects.create(**content)
-#         service_appointment_time = service_appointment.time.strftime("%H:%M:%S")
-#         json_data = json.dumps(
-#             service_appointment,
-#             cls=DjangoJSONEncoder
-#         )
-#         return JsonResponse(json.loads(json_data), safe=False)

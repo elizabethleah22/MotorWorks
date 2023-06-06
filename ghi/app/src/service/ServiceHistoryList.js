@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 function ServiceHistory({}) {
   const[servicehistory, setServicehistory] = useState([]);
-  const[vins, setVins] = useState('');
+  const[vin, setVin] = useState('');
 
   const deleteAppointment = async(service) => {
     const appointmentUrl = `http://localhost:8080/api/serviceappointment/${service.id}/`;
@@ -30,15 +30,14 @@ function ServiceHistory({}) {
 
   const handleVinChange = (event) => {
     const value = event.target.value;
-    setVins(value)
+    setVin(value)
   }
 
   const handleSearch = async () => {
     const Vinurl = 'http://localhost:8080/api/servicehistory/'
     const response = await fetch(Vinurl)
-    const data = await response.json()
-    const servicehistory = data
-    const result = servicehistory.filter(servicehistory => servicehistory.vin === vins)
+    const servicehistory = await response.json()
+    const result = servicehistory.filter(servicehistory => servicehistory.vin === vin)
     setServicehistory(result);
     if (servicehistory.length === 0) {
       alert("VIN not found")
@@ -49,12 +48,19 @@ function ServiceHistory({}) {
     useEffect( () => {
       getServicehistory()}, []);
 
+
     return (
       <div className="container">
         <h4>Search Appointment by VIN</h4>
-          <input onChange={handleVinChange} type="search" value={vins} className="form-control rounded" placeholder="Search VIN" aria-label="Search" aria-describedby="search-addon" />
-            <button variant="contained" size="medium" style={{backgroundColor:"black",
-            fontWeight:"normal", color:"white" }} onClick={handleSearch} >Search VIN</button>
+          <input onChange={handleVinChange} type="search" value={vin} className="form-control rounded" placeholder="Search VIN" aria-label="Search" aria-describedby="search-addon" />
+            <button type="button" className="btn btn-primary" style={{
+            fontWeight:"normal", color:"white", marginTop:"0.5rem" }} onClick={handleSearch} >Search</button>
+            <button type="button" className="btn btn-secondary" style={{
+            fontWeight:"normal", color:"white", marginTop:"0.5rem", marginLeft:"0.3rem" }} onClick={()=>{
+              getServicehistory();
+              setVin('');
+              }
+           } >View All</button>
 
 
         <table className="table table-striped">
@@ -62,7 +68,7 @@ function ServiceHistory({}) {
             <tr>
                 <th>Customer Name</th>
                 <th>VIN</th>
-                <td>VIP Status</td>
+                <th>VIP Status</th>
                 <th>Date</th>
                 <th>Technician</th>
                 <th>Reason</th>
@@ -79,7 +85,6 @@ function ServiceHistory({}) {
                     <td>{ service.technician }</td>
                     <td>{ service.reason }</td>
                     <td><button type="button" className="btn btn-success" onClick={() => deleteAppointment(service)}>Complete</button></td>
-                    <td><button className="btn btn-danger" onClick={() => deleteAppointment(service)}>Cancel</button></td>
                 </tr>
               );
             })}

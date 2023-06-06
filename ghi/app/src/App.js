@@ -177,11 +177,12 @@ useEffect( () => {
             <Route path="new" element={<NewTechnician technicians={technicians} getTechnicians={getTechnicians} />} />
           </Route>
           <Route path="/serviceappointment" >
-            <Route path="new" element={<NewServiceAppointment serviceappointment={serviceappointment} getServiceappointment={getServiceappointment} /> } />
+            <Route path="new" element={<NewServiceAppointment serviceappointment={serviceappointment} getServiceappointment={getServiceappointment}
+            technicians={technicians}/> } />
             <Route path="" element={<GetAppointmentlist appointmentlist={appointmentlist} getServiceappointment={getServiceappointment} /> } />
           </Route>
-          <Route path="/servicehistory" >
-            <Route path="" element={<ServiceHistory servicehistory={servicehistory} getServicehistory={getServicehistory} setServicehistory={setServicehistory} /> } />
+          <Route path="/service" >
+            <Route path="appointments" element={<ServiceHistory servicehistory={servicehistory} getServicehistory={getServicehistory} setServicehistory={setServicehistory} /> } />
           </Route>
           <Route path="/customers" >
             <Route path="" element={<NewCustomer customers={customers} getCustomers={getCustomers} /> } />
