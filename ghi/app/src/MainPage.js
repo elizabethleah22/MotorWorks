@@ -1,6 +1,6 @@
+import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
-import 'owl.carousel';
-
+import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 function MainPage() {
   return (
@@ -14,18 +14,29 @@ function MainPage() {
         </p>
       </div>
     </div>
-    <div className="row">
-        <div className="owl-carousel owl-theme">
-          <div className="item">
-            <img width="200" src="./car.jpeg" ></img>
-            <img width="200" src="./car.jpeg" ></img>
-            <img width="200" src="./car.jpeg" ></img>
-            <img width="200" src="./car.jpeg" ></img>
-            <img width="200" src="./car.jpeg" ></img>
-          </div>
-        </div>
-    </div>
-    </div>
+    <div class='container-fluid' >
+           <div className="row title" style={{marginBottom: "20px"}} >
+           <div class="col-sm-12 btn btn-info">
+           Look at my cars!!!
+           </div>
+           </div>
+       </div>
+       <div class='container-fluid' >
+        <OwlCarousel items={3}
+          className="owl-theme"
+          loop
+          nav
+          margin={8} >
+           <div ><img  className="img" src= {'./car.jpeg'}/></div>
+           <div ><img  className="img" src= {'./car.jpeg'}/></div>
+           <div ><img  className="img" src= {'./car.jpeg'}/></div>
+           <div ><img  className="img" src= {'./car.jpeg'}/></div>
+           <div ><img  className="img" src= {'./car.jpeg'}/></div>
+           <div ><img  className="img" src= {'./car.jpeg'}/></div>
+           <div ><img  className="img" src= {'./car.jpeg'}/></div>
+      </OwlCarousel>
+      </div>
+      </div>
 
   );
 }
