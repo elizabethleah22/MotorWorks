@@ -6,7 +6,6 @@ from common.json import ModelEncoder
 from .models import SalesRecord, AutomobileVO, SalesPerson, Customer
 
 
-# Create your views here.
 class AutomobileVODetailEncoder(ModelEncoder):
     model = AutomobileVO
     properties = [

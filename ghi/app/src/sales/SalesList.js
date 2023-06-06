@@ -1,6 +1,6 @@
 import React from 'react'
 
-function SalesList({sales}) {
+function SalesList({ sales }) {
     if (sales === undefined) {
         return null;
       }

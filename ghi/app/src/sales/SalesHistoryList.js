@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function SalesPersonHistoryList({salespeople}) {
+function SalesPersonHistoryList({ salespeople }) {
     const[salesperson, setSalesperson] = useState('')
     const [salesRecord, setSalesRecord] = useState([]);
 

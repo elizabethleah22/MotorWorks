@@ -1,6 +1,5 @@
 import React, {useState } from 'react'
 
-// 400 bad request post request
 export default function NewAutomobile({ getAutomobiles, models }) {
     const [color, setColor] = useState('');
     const [year, setYear] = useState('');

@@ -18,6 +18,7 @@ import SalesPersonHistoryList from './sales/SalesHistoryList'
 import TechnicianList from './service/TechnicianList';
 import GetAppointmentlist from './service/AllAppointments';
 import ServiceHistory from './service/ServiceHistoryList';
+import "./App.css"
 
 
 function App() {

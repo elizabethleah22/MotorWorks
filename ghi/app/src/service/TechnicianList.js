@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function TechnicianList({technicians}) {
+export default function TechnicianList({ technicians }) {
     return (
         <div>
             <h2 className="mt-5"><b>Technicians</b></h2>

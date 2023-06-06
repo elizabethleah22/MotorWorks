@@ -16,9 +16,3 @@ class VehicleModelVOAdmin(admin.ModelAdmin):
 @admin.register(AutomobileVO)
 class AutomobileVOAdmin(admin.ModelAdmin):
     pass
-
-
-# admin.site.register(Technician)
-# admin.site.register(ManufacturerVO)
-# admin.site.register(VehicleModelVO)
-# admin.site.register(AutomobileVO)

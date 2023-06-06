@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ManufacturerList({manufacturers}) {
+function ManufacturerList({ manufacturers }) {
     if (manufacturers === undefined) {
       return null;
     }

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function VehicleList({models}) {
+function VehicleList({ models }) {
     if (models === undefined) {
       return null;
     }

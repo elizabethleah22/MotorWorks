@@ -40,14 +40,6 @@ class AutomobileVO(models.Model):
     year = models.PositiveSmallIntegerField(null=True)
     vin = models.CharField(max_length=17, unique=True, null=True)
 
-    # model = models.ForeignKey(
-    #     VehicleModelVO,
-    #     related_name="automobiles",
-    #     on_delete=models.CASCADE,
-    # )
-
-    # def get_api_url(self):
-    #     return reverse("api_automobile", kwargs={"vin": self.vin})
 
 
 class ServiceAppointment(models.Model):

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 
-export default function NewServiceAppointment({getServiceappointment, technicians}) {
+export default function NewServiceAppointment({ getServiceappointment, technicians }) {
     const [customer_name, setCustomer_name] = useState('');
     const [vin, setVin] = useState('');
     const [time, setTime] = useState('');

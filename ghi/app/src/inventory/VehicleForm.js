@@ -1,6 +1,6 @@
 import React, {useState } from 'react'
 
-export default function NewVehicleModel({ manufacturers, models, getVehicleModels }) {
+export default function NewVehicleModel({ manufacturers }) {
     const [name, setName] = useState('');
     const [pictureUrl, setPictureUrl] = useState('');
     const [manufacturer, setManufacturer] = useState([])
