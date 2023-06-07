@@ -1,3 +1,13 @@
 .nav-link {
     margin-left: 1rem;
 }
+
+.card-text {
+   font-family: 'Bebas Neue', sans-serif;
+   text-align: center;
+   font-size: 23px;
+}
+
+.card-img-top {
+    height: 260px;width:100%
+}
