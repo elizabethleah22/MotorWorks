@@ -40,12 +40,6 @@ CarCar is made up of 3 microservices which interact with one another.
 
 ![Img](/images/CarCarDiagram.png)
 
-## Integration - How we put the "team" in "team"
-
-Our Inventory and Sales domains work together with our Service domain to make everything here at **CarCar** possible.
-
-How this all starts is at our inventory domain. We keep a record of automobiles on our lot that are available to buy. Our sales and service microservices obtain information from the inventory domain, using a **poller**, which talks to the inventory domain to keep track of which vehicles we have in our inventory so that the service and sales team always has up-to-date information.
-
 ## Accessing Endpoints to Send and View Data: Access Through Insomnia & Your Browser
 
 ### Manufacturers:
