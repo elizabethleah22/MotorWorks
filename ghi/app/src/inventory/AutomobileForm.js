@@ -82,7 +82,7 @@ export default function NewAutomobile({ getAutomobiles, models }) {
                             })}
                         </select>
                     </div>
-                    <button className="btn btn-primary">Submit</button>
+                    <button className="btn">Submit</button>
                     </form>
                 </div>
             </div>

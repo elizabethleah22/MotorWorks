@@ -6,7 +6,7 @@ function AutomobileList({ automobiles }) {
     }
     return (
       <div className="container">
-        <h1>Vehicle Models</h1>
+        <h1 className="inventoryListTitle">Current Automobile Inventory</h1>
         <table className="table table-striped">
           <thead>
             <tr>

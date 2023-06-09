@@ -101,7 +101,7 @@ export default function NewSalesRecord({ automobiles, customers, salespeople, ge
                             <input onChange={handlePriceChange} placeholder="Price" required type="text" name="price" id="price" className="form-control" value={price} />
                             <label htmlFor="price">Price</label>
                         </div>
-                        <button className="btn btn-primary">Submit</button>
+                        <button className="btn">Submit</button>
                     </form>
                 </div>
             </div>

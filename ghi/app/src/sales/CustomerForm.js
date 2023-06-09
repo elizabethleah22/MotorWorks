@@ -62,7 +62,7 @@ export default function NewCustomer({ getCustomers }) {
                             <input onChange={handlePhoneNumberChange} placeholder="Phone Number" required type="text" name="phone_number" id="phone_number" className="form-control" value={phoneNumber} />
                             <label htmlFor="phone_number">Phone Number</label>
                         </div>
-                        <button className="btn btn-primary">Submit</button>
+                        <button className="btn">Submit</button>
                     </form>
                 </div>
             </div>

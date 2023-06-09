@@ -50,7 +50,7 @@ export default function NewSalesPerson({ getSalesPeople }) {
                             <input onChange={handleEmployeeNumberChange} placeholder="Employee Number" required type="text" name="employee_number" id="employee_number" className="form-control" value={employee_number} />
                             <label htmlFor="employee_number">Employee Number</label>
                         </div>
-                        <button className="btn btn-primary">Submit</button>
+                        <button className="btn">Submit</button>
                     </form>
                 </div>
             </div>

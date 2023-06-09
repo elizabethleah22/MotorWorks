@@ -51,12 +51,13 @@ function ServiceHistory({}) {
 
     return (
       <div className="container">
+        <h1>Service Appointments</h1>
         <h4>Search Appointment by VIN</h4>
           <input onChange={handleVinChange} type="search" value={vin} className="form-control rounded" placeholder="Search VIN" aria-label="Search" aria-describedby="search-addon" />
-            <button type="button" className="btn btn-primary" style={{
-            fontWeight:"normal", color:"white", marginTop:"0.5rem" }} onClick={handleSearch} >Search</button>
-            <button type="button" className="btn btn-secondary" style={{
-            fontWeight:"normal", color:"white", marginTop:"0.5rem", marginLeft:"0.3rem" }} onClick={()=>{
+            <button type="button" className="btn" style={{
+            fontWeight:"normal", color:"white", marginTop:"0.5rem", backgroundColor:"grey" }} onClick={handleSearch} >Search</button>
+            <button type="button" className="btn" style={{
+            fontWeight:"normal", color:"white", marginTop:"0.5rem", marginLeft:"0.3rem", backgroundColor:"grey" }} onClick={()=>{
               getServicehistory();
               setVin('');
               }
@@ -84,7 +85,7 @@ function ServiceHistory({}) {
                     <td>{ service.date }</td>
                     <td>{ service.technician }</td>
                     <td>{ service.reason }</td>
-                    <td><button type="button" className="btn btn-success" onClick={() => deleteAppointment(service)}>Complete</button></td>
+                    <td><button type="button" className="btn" onClick={() => deleteAppointment(service)}>Complete</button></td>
                 </tr>
               );
             })}

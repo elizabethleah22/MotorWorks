@@ -114,7 +114,7 @@ export default function NewServiceAppointment({ getServiceappointment, technicia
                                 })}
                             </select>
                         </div>
-                    <button className="btn btn-primary">Create</button>
+                    <button className="btn">Create</button>
                 </form>
             </div>
         </div>

@@ -54,7 +54,7 @@ export default function NewTechnician({ getTechnicians }) {
                         <input onChange={handleEmployee_numberChange} placeholder="Employee Number" required type="text" name="employee_number" id="employee_number" className="form-control" value={employee_number} />
                         <label htmlFor="employee_number">Employee Number</label>
                     </div>
-                    <button className="btn btn-primary">Create</button>
+                    <button className="btn">Create</button>
                 </form>
             </div>
         </div>

@@ -6,7 +6,7 @@ function VehicleList({ models }) {
     }
     return (
       <div className="container">
-        <h1>Vehicle Models</h1>
+        <h1>Vehicle Models in Stock</h1>
         <table className="table table-striped">
           <thead>
             <tr>
